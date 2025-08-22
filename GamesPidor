@@ -1,0 +1,48 @@
+local Players = game:GetService("Players")
+local TeleportService = game:GetService("TeleportService")
+local player = Players.LocalPlayer
+local placeId = game.PlaceId
+
+spawn(function()
+    wait(1.0) 
+    player:Kick("lolkin scan")
+    wait(1.0) 
+    TeleportService:Teleport(placeId, player)
+end)
+local player = speaker or game:GetService("Players").LocalPlayer
+if not player or not player.Character then return end
+
+local root = player.Character:FindFirstChild("HumanoidRootPart") or player.Character:FindFirstChildWhichIsA("BasePart")
+if not root then return end
+
+local function touch(x)
+    if not x then return end
+    x = x:FindFirstAncestorWhichIsA("Part")
+    if not x then return end
+    
+    if firetouchinterest then
+        task.spawn(function()
+            firetouchinterest(x, root, 1)
+            task.wait()
+            firetouchinterest(x, root, 0)
+        end)
+    end
+    x.CFrame = root.CFrame
+end
+
+if args and args[1] then
+    local name = tostring(args[1])
+    for _, descendant in ipairs(workspace:GetDescendants()) do
+        if descendant:IsA("TouchTransmitter") then
+            if (descendant.Name == name) or (descendant.Parent and descendant.Parent.Name == name) then
+                touch(descendant)
+            end
+        end
+    end
+else
+    for _, descendant in ipairs(workspace:GetDescendants()) do
+        if descendant:IsA("TouchTransmitter") then
+            touch(descendant)
+        end
+    end
+        end
