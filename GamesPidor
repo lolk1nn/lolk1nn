@@ -5,7 +5,7 @@ local placeId = game.PlaceId
 
 spawn(function()
     wait(1.0) 
-    player:Kick("lolkin scan")
+    player:Kick("games pidor")
     wait(1.0) 
     TeleportService:Teleport(placeId, player)
 end)
